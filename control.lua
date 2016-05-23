@@ -1,6 +1,7 @@
 require "defines"
 require("control.SingleSplitter")
 require("control.LeftLaneDiverter")
+require("control.RightLaneDiverter")
 
 remote.add_interface("SingleSplitter",
 {
@@ -33,6 +34,10 @@ function OnUpgrade()
         ["Left Lane Diverter"] = {
             ["Instances"] = {},
             ["OnEntityTick"] = OnLeftLaneDiverterEntityTick
+        },
+        ["Right Lane Diverter"] = {
+            ["Instances"] = {},
+            ["OnEntityTick"] = OnRightLaneDiverterEntityTick
         }
     }
 end
