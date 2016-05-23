@@ -1,5 +1,6 @@
 require "defines"
 require("control.SingleSplitter")
+require("control.LeftLaneDiverter")
 
 remote.add_interface("SingleSplitter",
 {
@@ -18,11 +19,6 @@ script.on_event(defines.events.on_player_rotated_entity, function(event) OnPlaye
 script.on_event(defines.events.on_robot_built_entity, function(event) OnBuiltEntity(event) end)
 script.on_event(defines.events.on_robot_pre_mined, function(event) OnRemovedEntity(event) end)
 
-local north = defines.direction.north
-local east = defines.direction.east
-local south = defines.direction.south
-local west = defines.direction.west
-
 function OnInit()
     global.SingleSplitter = {}
     OnUpgrade()
@@ -33,6 +29,10 @@ function OnUpgrade()
         ["Single Splitter"] = {
             ["Instances"] = global.SingleSplitter,
             ["OnEntityTick"] = OnSingleSplitterEntityTick
+        },
+        ["Left Lane Diverter"] = {
+            ["Instances"] = {},
+            ["OnEntityTick"] = OnLeftLaneDiverterEntityTick
         }
     }
 end
@@ -61,8 +61,10 @@ function OnTick(_Event)
     
     if (global.BeltUtils == nil) then OnUpgrade() end
     
-    for _, entity in pairs(global.BeltUtils["Single Splitter"]["Instances"]) do
-        global.BeltUtils["Single Splitter"]["OnEntityTick"](entity)
+    for _,managedEntityInformation in pairs(global.BeltUtils) do
+        for _, entity in pairs(managedEntityInformation["Instances"]) do
+            managedEntityInformation["OnEntityTick"](entity)
+        end
     end
 end
 
