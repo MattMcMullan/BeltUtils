@@ -9,14 +9,14 @@ function IsSingleSplitter(_Entity)
 end
 
 function GetSplitterInBelt(Splitter)  
-    local inBelt = Splitter.cachedInBelt			
+    local inBelt = Splitter.cachedInBelt
     if nil == inBelt or not inBelt.valid or not inBelt.direction == Splitter.dir then
         Splitter.cachedInBelt = nil
         inBelt = nil
-		
+        
         local scanArea = GetScanArea(Splitter.dir, Splitter.pos)
         local belt = game.get_surface(1).find_entities_filtered({	type="transport-belt", area = scanArea})
-        if belt[1] ~= nil and belt[1].direction == Splitter.dir then			
+        if belt[1] ~= nil and belt[1].direction == Splitter.dir then
             inBelt = belt[1]
             Splitter.cachedInBelt = inBelt
         end
@@ -24,17 +24,17 @@ function GetSplitterInBelt(Splitter)
     return inBelt
 end
 
-function GetSplitterOutBelt(Splitter)  
-    local outBelt = Splitter.cachedOutBelt			
+function GetSplitterOutBelt(Splitter)
+    local outBelt = Splitter.cachedOutBelt
     if nil == outBelt or not outBelt.valid or not outBelt.direction == Splitter.dir then
         Splitter.cachedOutBelt = nil
         outBelt = nil
-		
+        
         local facing_directions = {[north] = south, [east] = west, [south] = north, [west] = east}
         local scanArea = GetScanArea(facing_directions[Splitter.dir], Splitter.pos)
     
         local belt = game.get_surface(1).find_entities_filtered({	type="transport-belt", area = scanArea})
-        if belt[1] ~= nil and belt[1].direction == Splitter.dir then			
+        if belt[1] ~= nil and belt[1].direction == Splitter.dir then
             outBelt = belt[1]
             Splitter.cachedOutBelt = outBelt
         end
@@ -44,7 +44,7 @@ end
 
 function OnSingleSplitterEntityTick(splitter)
     local inBelt = GetSplitterInBelt(splitter)
-    local outBelt = GetSplitterOutBelt(splitter)	
+    local outBelt = GetSplitterOutBelt(splitter)
     
     if (splitter.lastOut == nil) then splitter.lastOut = {1 , 1} end
     if nil ~= inBelt and nil ~= outBelt then
@@ -59,8 +59,8 @@ function OnSingleSplitterEntityTick(splitter)
                 takeFromSide = NegateSide(takeFromSide)
                 takeToSide = NegateSide(splitter.lastOut[takeFromSide])
                 InLane = inBelt.get_transport_line(takeFromSide)
-                OutLane = outBelt.get_transport_line(takeToSide)					
-            end	
+                OutLane = outBelt.get_transport_line(takeToSide)
+            end
 
             if not InLane.can_insert_at(0) then
                 local InLaneContents=InLane.get_contents()	

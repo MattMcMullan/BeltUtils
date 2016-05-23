@@ -3,7 +3,7 @@ local east = defines.direction.east
 local south = defines.direction.south
 local west = defines.direction.west
 
-function MoveItems(ItemName, InputLane, OutputLane)      
+function MoveItems(ItemName, InputLane, OutputLane)
     if OutputLane.can_insert_at_back() then
         local stack = {name = ItemName, count = 1}
         InputLane.remove_item (stack)
