@@ -79,8 +79,8 @@ function OnTick(_Event)
 end
 
 function OnBuiltEntity(_Event)
-    local entity = _Event.created_entity
-    local managedEntityInformation = global.BeltUtils[entity.name]
+    local _Entity = _Event.created_entity
+    local managedEntityInformation = global.BeltUtils[_Entity.name]
     
     -- This is not an entity managed by us
     if (managedEntityInformation == nil) then
@@ -89,10 +89,11 @@ function OnBuiltEntity(_Event)
     
     -- This is the key that we will use later to identify this entity
     local set = {
-        pos = entity.position,
-        dir = entity.direction,
+        pos = _Entity.position,
+        dir = _Entity.direction,
         lastInSide = 1,
-        lastOut = {1,2}
+        lastOut = {1,2},
+        entity = _Entity
     }
     
     table.insert(managedEntityInformation["Instances"], set)
