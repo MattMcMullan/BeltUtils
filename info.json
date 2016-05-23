@@ -1,0 +1,10 @@
+{
+  "name": "Belt-Utils",
+  "version": "0.0.1",
+  "title": "Belt-Utils",
+  "author": "",
+  "contact": "nope",
+  "homepage": "nope",
+  "description": "Some useful extensions to Factorio's transport belt mechanics. Branched from Razorin's Single-Splitter mod.",
+  "dependencies": ["base >= 0.12.0"]
+}
