@@ -10,11 +10,11 @@ remote.add_interface("SingleSplitter",
 script.on_init(function() OnInit() end)
 script.on_event(defines.events.on_tick, function(event) OnTick(event) end)
 script.on_event(defines.events.on_built_entity, function(event) OnBuiltEntity(event) end)
-script.on_event(defines.events.on_entity_died, function(event) OnEntityDied(event) end)
-script.on_event(defines.events.on_preplayer_mined_item, function(event) OnPrePlayerMinedItem(event) end)
+script.on_event(defines.events.on_entity_died, function(event) OnRemovedEntity(event) end)
+script.on_event(defines.events.on_preplayer_mined_item, function(event) OnRemovedEntity(event) end)
 script.on_event(defines.events.on_player_rotated_entity, function(event) OnPlayerRotatedEntity(event) end)
-script.on_event(defines.events.on_robot_built_entity, function(event) OnRobotBuiltEntity(event) end)
-script.on_event(defines.events.on_robot_pre_mined, function(event) OnRobotPreMined(event) end)
+script.on_event(defines.events.on_robot_built_entity, function(event) OnBuiltEntity(event) end)
+script.on_event(defines.events.on_robot_pre_mined, function(event) OnRemovedEntity(event) end)
 
 local north = defines.direction.north
 local east = defines.direction.east
@@ -116,7 +116,7 @@ function OnTick(_Event)
 				
 				local InLane = inBelt.get_transport_line(takeFromSide)
                 local OutLane = outBelt.get_transport_line(takeToSide)
-												
+				
 				if InLane.can_insert_at(0) then
 					takeFromSide = NegateSide(takeFromSide)
 					takeToSide = NegateSide(splitter.lastOut[takeFromSide])
@@ -154,25 +154,7 @@ function OnBuiltEntity(_Event)
     end
 end
 
-function OnRobotBuiltEntity(_Event)
-    if IsSingleSplitter(_Event.created_entity) then
-        AddSingleSplitter(_Event.created_entity)
-    end
-end
-
-function OnRobotPreMined(_Event)
-    if IsSingleSplitter(_Event.entity) then
-        RemoveSingleSplitter(_Event.entity)
-    end
-end
-
-function OnPrePlayerMinedItem(_Event)
-    if IsSingleSplitter(_Event.entity) then
-        RemoveSingleSplitter(_Event.entity)
-    end
-end
-
-function OnEntityDied(_Event)
+function OnRemovedEntity(_Event)
     if IsSingleSplitter(_Event.entity) then
         RemoveSingleSplitter(_Event.entity)
     end
@@ -202,7 +184,6 @@ function RemoveSingleSplitter(_Splitter)
         end 
     end
 end
-
 
 function GetScanArea(_Direction, _Position)
     local beltscan_coords = { -- Points to search for transport belts.
