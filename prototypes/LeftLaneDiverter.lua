@@ -4,7 +4,7 @@ data:extend(
 		{
 			type = "item",
 			name = "Left Lane Diverter",
-			icon = "__Belt-Utils__/graphics/splitter.png",
+			icon = "__Belt-Utils__/graphics/leftlanediverter.png",
 			flags = { "goes-to-quickbar" },
 			subgroup = "belt",
 			place_result="Left Lane Diverter",
@@ -36,7 +36,7 @@ data:extend(
 		{
 			type = "inserter",
 			name = "Left Lane Diverter",
-			icon = "__Belt-Utils__/graphics/splitter.png",
+			icon = "__Belt-Utils__/graphics/leftlanediverter.png",
 			flags = {"placeable-neutral", "player-creation"},
 			minable = {hardness = 0.2, mining_time = 0.5, result = "Left Lane Diverter"},
 			max_health = 40,
@@ -97,7 +97,7 @@ data:extend(
 			{
 				sheet = 
 				{
-					filename = "__Belt-Utils__/graphics/splitter-belt2.png",
+					filename = "__Belt-Utils__/graphics/leftlanediverter-large.png",
 					priority = "extra-high",
 					width = 64,
 					height = 44,
