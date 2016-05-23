@@ -41,3 +41,37 @@ function GetScanArea(_Direction, _Position)
         return {{pos.x , pos.y},{pos.x , pos.y}}
     end
 end
+
+function GetFrontBelt(_Entity)  
+    local frontBelt = _Entity.cachedInBelt
+    if nil == frontBelt or not frontBelt.valid or not frontBelt.direction == _Entity.dir then
+        _Entity.cachedInBelt = nil
+        frontBelt = nil
+        
+        local scanArea = GetScanArea(_Entity.dir, _Entity.pos)
+        local belt = game.get_surface(1).find_entities_filtered({type = "transport-belt", area = scanArea})
+        if belt[1] ~= nil and belt[1].direction == _Entity.dir then
+            frontBelt = belt[1]
+            _Entity.cachedInBelt = frontBelt
+        end
+    end
+    return frontBelt
+end
+
+function GetRearBelt(_Entity)
+    local rearBelt = _Entity.cachedOutBelt
+    if nil == rearBelt or not rearBelt.valid or not rearBelt.direction == _Entity.dir then
+        _Entity.cachedOutBelt = nil
+        rearBelt = nil
+        
+        local facing_directions = {[north] = south, [east] = west, [south] = north, [west] = east}
+        local scanArea = GetScanArea(facing_directions[_Entity.dir], _Entity.pos)
+    
+        local belt = game.get_surface(1).find_entities_filtered({type = "transport-belt", area = scanArea})
+        if belt[1] ~= nil and belt[1].direction == _Entity.dir then
+            rearBelt = belt[1]
+            _Entity.cachedOutBelt = rearBelt
+        end
+    end
+    return rearBelt
+end
