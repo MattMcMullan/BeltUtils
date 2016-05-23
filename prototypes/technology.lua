@@ -1,6 +1,6 @@
 function Empty()
 	return {
-			filename = "__Single-Splitter__/graphics/empty.png",
+			filename = "__Belt-Utils__/graphics/empty.png",
 			priority = "extra-high",
 			width = 1,
 			height = 1
@@ -12,7 +12,7 @@ data:extend({
   {
 		type = "inserter",
 		name = "Single Splitter",
-		icon = "__Single-Splitter__/graphics/splitter.png",
+		icon = "__Belt-Utils__/graphics/splitter.png",
 		flags = {"placeable-neutral", "player-creation"},
 		minable = {hardness = 0.2, mining_time = 0.5, result = "Single Splitter"},
 		max_health = 40,
@@ -73,7 +73,7 @@ data:extend({
 		{
 			sheet = 
 			{
-				filename = "__Single-Splitter__/graphics/splitter-belt2.png",
+				filename = "__Belt-Utils__/graphics/splitter-belt2.png",
 				priority = "extra-high",
 				width = 64,
 				height = 44,
