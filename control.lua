@@ -21,7 +21,7 @@ script.on_event(defines.events.on_preplayer_mined_item, function(event) OnRemove
 script.on_event(defines.events.on_player_rotated_entity, function(event) OnPlayerRotatedEntity(event) end)
 script.on_event(defines.events.on_robot_built_entity, function(event) OnBuiltEntity(event) end)
 script.on_event(defines.events.on_robot_pre_mined, function(event) OnRemovedEntity(event) end)
-script.on_load(OnInitOrLoadOrUpgrade)
+script.on_load(function() OnInitOrLoadOrUpgrade() end)
 
 function OnInitOrLoadOrUpgrade()
     -- While not technically required for public releases, this level of granularity allows for smooth upgrades, even during development
