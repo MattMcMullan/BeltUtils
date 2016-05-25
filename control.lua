@@ -13,7 +13,7 @@ remote.add_interface("SingleSplitter",
     end
 })
 
-script.on_init(function() OnInit() end)
+script.on_init(function() OnInitOrLoadOrUpgrade() end)
 script.on_event(defines.events.on_tick, function(event) OnTick(event) end)
 script.on_event(defines.events.on_built_entity, function(event) OnBuiltEntity(event) end)
 script.on_event(defines.events.on_entity_died, function(event) OnRemovedEntity(event) end)
@@ -21,35 +21,57 @@ script.on_event(defines.events.on_preplayer_mined_item, function(event) OnRemove
 script.on_event(defines.events.on_player_rotated_entity, function(event) OnPlayerRotatedEntity(event) end)
 script.on_event(defines.events.on_robot_built_entity, function(event) OnBuiltEntity(event) end)
 script.on_event(defines.events.on_robot_pre_mined, function(event) OnRemovedEntity(event) end)
+script.on_load(OnInitOrLoadOrUpgrade)
 
-function OnInit()
-    global.SingleSplitter = {}
-    OnUpgrade()
-end
+function OnInitOrLoadOrUpgrade()
+    -- While not technically required for public releases, this level of granularity allows for smooth upgrades, even during development
+    if (nil == global.SingleSplitter) then
+        global.SingleSplitter = {}
+    end
 
-function OnUpgrade()
-    global.BeltUtils = {
-        ["Single Splitter"] = {
+    if (nil == global.BeltUtils) then
+        global.BeltUtils = {}
+    end
+    
+    local name = "SingleSplitter"
+    if (nil == global.BeltUtils[name]) then
+        global.BeltUtils[name] = {
             ["Instances"] = global.SingleSplitter,
             ["OnEntityTick"] = OnSingleSplitterEntityTick
-        },
-        ["Left Lane Diverter"] = {
+        }
+    end
+    
+    name = "Left Lane Diverter"
+    if (nil == global.BeltUtils[name]) then
+        global.BeltUtils[name] = {
             ["Instances"] = {},
             ["OnEntityTick"] = OnLeftLaneDiverterEntityTick
-        },
-        ["Right Lane Diverter"] = {
+        }
+    end
+    
+    name = "Right Lane Diverter"
+    if (nil == global.BeltUtils[name]) then
+        global.BeltUtils[name] = {
             ["Instances"] = {},
             ["OnEntityTick"] = OnRightLaneDiverterEntityTick
-        },
-        ["Transport Belt Trash Can"] = {
+        }
+    end
+    
+    name = "Transport Belt Trash Can"
+    if (nil == global.BeltUtils[name]) then
+        global.BeltUtils[name] = {
             ["Instances"] = {},
             ["OnEntityTick"] = OnTrashCanEntityTick
-        },
-        ["Trash Pipe"] = {
+        }
+    end
+    
+    name = "Trash Pipe"
+    if (nil == global.BeltUtils[name]) then
+        global.BeltUtils[name] = {
             ["Instances"] = {},
             ["OnEntityTick"] = OnTrashPipeEntityTick
         }
-    }
+    end
 end
 
 function OnPlayerRotatedEntity(_Event)
@@ -73,8 +95,6 @@ end
 
 function OnTick(_Event)	
     if((game.tick % 5) ~= 0) then return end
-    
-    if (global.BeltUtils == nil) then OnUpgrade() end
     
     for _,managedEntityInformation in pairs(global.BeltUtils) do
         for _, entity in pairs(managedEntityInformation["Instances"]) do
