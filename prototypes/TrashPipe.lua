@@ -7,6 +7,7 @@ data:extend(
             icon = "__Belt-Utils__/graphics/brass-pipe.png",
             flags = { "goes-to-quickbar" },
             subgroup = "pipe",
+            order = "a[pipe]-a[pipe]-5-1",
             place_result="Trash Pipe",
             stack_size= 50,
         },
@@ -19,7 +20,7 @@ data:extend(
     {
         type = "recipe",
         name = "Trash Pipe",
-        enabled = "true",
+        enabled = "false",
         ingredients =
         {
             {"iron-plate",10},
