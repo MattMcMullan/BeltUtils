@@ -19,7 +19,7 @@ data:extend(
     {
       type = "recipe",
       name = "Single Splitter",
-      enabled = "true",
+      enabled = "false",
       ingredients = 
       {
         {"electronic-circuit",2},

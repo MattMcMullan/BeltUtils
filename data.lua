@@ -4,4 +4,8 @@ require("prototypes.RightLaneDiverter")
 require("prototypes.TrashCan")
 require("prototypes.TrashPipe")
 
+table.insert(data.raw.technology["logistics"].effects,{type = "unlock-recipe", recipe = "Left Lane Diverter"})
+table.insert(data.raw.technology["logistics"].effects,{type = "unlock-recipe", recipe = "Right Lane Diverter"})
+table.insert(data.raw.technology["electronics"].effects,{type = "unlock-recipe", recipe = "Single Splitter"})
+table.insert(data.raw.technology["electronics"].effects,{type = "unlock-recipe", recipe = "Transport Belt Trash Can"})
 table.insert(data.raw.technology["oil-processing"].effects,{type = "unlock-recipe", recipe = "Trash Pipe"})

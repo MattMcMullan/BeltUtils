@@ -19,11 +19,12 @@ data:extend(
     {
       type = "recipe",
       name = "Left Lane Diverter",
-      enabled = "true",
+      enabled = "false",
       ingredients = 
       {
-        {"electronic-circuit",2},
-        {"iron-plate",2}
+        {"iron-plate",2},
+        {"basic-transport-belt",2},
+        {"basic-circuit-board",5}
       },
       result = "Left Lane Diverter"
     }

@@ -19,7 +19,7 @@ data:extend(
     {
       type = "recipe",
       name = "Transport Belt Trash Can",
-      enabled = "true",
+      enabled = "false",
       ingredients = 
       {
         {"electronic-circuit",2},
